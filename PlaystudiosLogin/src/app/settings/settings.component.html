@@ -1,0 +1,39 @@
+<div class="settings">
+  <h1>Your info</h1>
+
+  <div>
+    <label>Name:</label>
+    {{userInfo?.name}}
+  </div>
+
+  <div>
+    <label>Email:</label>
+    {{userInfo?.email}}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-error *ngIf="resetPasswordResult && !resetPasswordResult.success">
+        <strong>ERROR</strong>: {{resetPasswordResult.message}}
+      </mat-error>
+    </p>
+
+    <mat-form-field>
+      <mat-label>Change password:</mat-label>
+      <input matInput type="password" formControlName="password" required placeholder="Change Password">
+      <mat-error *ngFor="let error of getErrors(form.get('password')!,'Password')">
+        {{error}}
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <button mat-flat-button color="primary" type="submit">
+        Reset Password
+      </button>
+
+      <button mat-flat-button color="secondary" [routerLink]="['/']">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
